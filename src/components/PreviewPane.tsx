@@ -11,6 +11,12 @@ interface PreviewPaneProps {
   content: string;
 }
 
+function wrapMarkdownTables(html: string): string {
+  return html
+    .replace(/<table>/gi, '<div class="markdown-table-wrapper"><table>')
+    .replace(/<\/table>/gi, '</table></div>');
+}
+
 function handlePreviewClick(event: MouseEvent<HTMLDivElement>): void {
   const anchor = (event.target as HTMLElement).closest('a');
   if (!anchor) return;
@@ -34,7 +40,7 @@ export function PreviewPane({ content }: PreviewPaneProps) {
     if (!content.trim()) {
       return '<p class="preview-empty">Preview will appear here as you write markdown.</p>';
     }
-    return marked.parse(content) as string;
+    return wrapMarkdownTables(marked.parse(content) as string);
   }, [content]);
 
   return (

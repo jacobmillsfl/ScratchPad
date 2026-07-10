@@ -55,9 +55,11 @@ export default function App() {
   const updateContent = useNotesStore((s) => s.updateContent);
 
   const showActionsPane = useUiStore((s) => s.showActionsPane);
+  const showEditorPane = useUiStore((s) => s.showEditorPane);
   const showPreviewPane = useUiStore((s) => s.showPreviewPane);
   const showArchiveModal = useUiStore((s) => s.showArchiveModal);
   const toggleActionsPane = useUiStore((s) => s.toggleActionsPane);
+  const toggleEditorPane = useUiStore((s) => s.toggleEditorPane);
   const togglePreviewPane = useUiStore((s) => s.togglePreviewPane);
   const setShowArchiveModal = useUiStore((s) => s.setShowArchiveModal);
 
@@ -171,6 +173,16 @@ export default function App() {
           </button>
           <button
             type="button"
+            className={`view-toggle ${showEditorPane ? 'view-toggle-active' : ''}`}
+            onClick={toggleEditorPane}
+            title={showEditorPane ? 'Hide editor pane' : 'Show editor pane'}
+            aria-label={showEditorPane ? 'Hide editor pane' : 'Show editor pane'}
+            aria-pressed={showEditorPane}
+          >
+            <PaneToggleIcon side="center" active={showEditorPane} />
+          </button>
+          <button
+            type="button"
             className={`view-toggle ${showPreviewPane ? 'view-toggle-active' : ''}`}
             onClick={togglePreviewPane}
             title={showPreviewPane ? 'Hide preview pane' : 'Show preview pane'}
@@ -184,8 +196,14 @@ export default function App() {
       <TabBar onCloseRequest={handleCloseRequest} />
       <main className="app-main">
         {showActionsPane && <ActionSidebar />}
-        <div className={`editor-preview ${!showPreviewPane ? 'editor-preview-full' : ''}`}>
-          <EditorPane key={activeNote.id} noteId={activeNote.id} content={activeNote.content} />
+        <div
+          className={`editor-preview ${
+            showEditorPane && !showPreviewPane ? 'editor-preview-full' : ''
+          } ${!showEditorPane ? 'editor-preview-editor-hidden' : ''}`}
+        >
+          {showEditorPane && (
+            <EditorPane key={activeNote.id} noteId={activeNote.id} content={activeNote.content} />
+          )}
           {showPreviewPane && <PreviewPane content={activeNote.content} />}
         </div>
       </main>
