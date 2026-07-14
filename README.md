@@ -8,6 +8,7 @@ Ephemeral scratch notes with markdown preview and action tracking. Built on [vit
 - Archive tabs to hide long-term notes from the tab bar
 - Markdown editor with smart list continuation
 - Split preview pane (toggle from header)
+- Preview syntax highlighting for common languages (see below)
 - Find and replace in the editor (`Cmd/Ctrl+F`, `Cmd/Ctrl+Alt+F`)
 - **Make list** / **Make actions** — select lines, right-click or `Cmd/Ctrl+Shift+L` / `Cmd/Ctrl+Shift+A`
 - Actions sidebar for `- [ ]` items in the active tab
@@ -99,6 +100,33 @@ Output: `dist/Scratchpad Setup <version>.exe` (exact name varies). Run the insta
 - New tab: `Cmd+T` (macOS) or `Ctrl+T` (Windows).
 - `npm run dev` and `npm run start` work on macOS and Windows.
 - `dist:install` is macOS-only. Use `dist:win` on Windows.
+
+## Markdown preview
+
+The preview pane renders GitHub-flavored markdown, including tables, blockquotes, and fenced code blocks with syntax highlighting. Use a language tag on fenced code blocks:
+
+````markdown
+```py
+print("hello")
+```
+````
+
+### Syntax highlighting languages
+
+| Language | Tags |
+|----------|------|
+| HTML | `html`, `xml` |
+| CSS | `css` |
+| Python | `py`, `python` |
+| JavaScript | `js`, `javascript` |
+| TypeScript | `ts`, `typescript` |
+| Java | `java` |
+| Bash | `bash`, `sh` |
+| C | `c` |
+| C++ | `cpp`, `c++` |
+| C# | `csharp`, `cs` |
+
+Fenced blocks with an unrecognized tag (or no tag) render as plain monospace text.
 
 ## Project layout
 

@@ -1,11 +1,6 @@
 import { useMemo, type MouseEvent } from 'react';
-import { marked } from 'marked';
+import { parseMarkdownPreview } from '../lib/markdownPreview';
 import { useNotesStore } from '../store/notes';
-
-marked.setOptions({
-  gfm: true,
-  breaks: true,
-});
 
 interface PreviewPaneProps {
   content: string;
@@ -40,7 +35,7 @@ export function PreviewPane({ content }: PreviewPaneProps) {
     if (!content.trim()) {
       return '<p class="preview-empty">Preview will appear here as you write markdown.</p>';
     }
-    return wrapMarkdownTables(marked.parse(content) as string);
+    return wrapMarkdownTables(parseMarkdownPreview(content));
   }, [content]);
 
   return (
